@@ -1,0 +1,24 @@
+name: 'Change Management Validator'
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - main
+
+jobs:
+  check-commit-message:
+    name: Check Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Commit Type
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: '^.*?\bETSWORK-\d+\b.*?$'
+          flags: 'gm'
+          error: 'Pull request title or description must contain a reference to a change management ticket such as ETSWORK-1234.'

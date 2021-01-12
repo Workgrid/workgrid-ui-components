@@ -1,0 +1,67 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: UI Components Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false # Per the GitHub Pages action below
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install
+        run: yarn install --frozen-lockfile
+      - name: Lint
+        run: yarn lint
+      - name: Build storybook
+        run: yarn build-storybook --quiet
+      - name: Test
+        run: yarn test
+      - name: Capture image snapshot diffs on failure
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: Imagesnapshot Diffs
+          path: src/storyshots/__image_snapshots__/__diff_output__/
+      - name: Capture Storybook static build
+        uses: actions/upload-artifact@v2
+        with:
+          name: Storybook Build
+          path: storybook-static
+      - name: Compile
+        run: tsc
+      - name: '[NPM] Configure'
+        if: github.ref == 'refs/heads/main'
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      - name: '[NPM] Publish'
+        if: github.ref == 'refs/heads/main'
+        run: yarn publish --tag=latest --access=public
+        env:
+          YARN_REGISTRY: https://registry.npmjs.org/
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Yarn doesn't seem to respect this
+      - name: Publish Storybook to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@132898c54c57c7cc6b80eb3a89968de8fc283505
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: storybook-static
+          CLEAN: true
