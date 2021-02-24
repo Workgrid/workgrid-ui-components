@@ -35,7 +35,7 @@ describe('Input', () => {
 
   test('onBlur option', () => {
     const onBlur = jest.fn()
-    render(<Input {...defaultProps} onBlur={onBlur} />)
+    render(<Input {...defaultProps} data-testid={defaultProps.testId} onBlur={onBlur} />)
     fireEvent.blur(screen.getByTestId(defaultProps.testId))
     expect(onBlur).toHaveBeenCalled()
   })
