@@ -5,7 +5,6 @@ import { ionFireEvent as fireEvent } from '@ionic/react-test-utils'
 
 describe('Input', () => {
   const defaultProps = {
-    type: 'text',
     name: 'Text',
     label: 'Input Label',
     placeholder: 'Placeholder Text',
@@ -13,19 +12,19 @@ describe('Input', () => {
   }
 
   test('Default options', () => {
-    render(<Input {...defaultProps} />)
+    render(<Input {...defaultProps} data-testid={defaultProps.testId} />)
     expect(screen.getByText(defaultProps.label)).not.toBeNull()
     expect(screen.getByPlaceholderText(defaultProps.placeholder)).not.toBeNull()
     expect(screen.getByTestId('ion-item').className).toEqual('')
   })
 
   test('Disable option', () => {
-    render(<Input {...defaultProps} disabled={true} />)
+    render(<Input {...defaultProps} data-testid={defaultProps.testId} disabled={true} />)
     expect((screen.getByTestId(defaultProps.testId) as any).disabled)
   })
 
   test('ReadOnly option', () => {
-    render(<Input {...defaultProps} readonly={true} />)
+    render(<Input {...defaultProps} data-testid={defaultProps.testId} readonly={true} />)
     expect((screen.getByTestId(defaultProps.testId) as any).readonly)
   })
 
@@ -43,18 +42,16 @@ describe('Input', () => {
 
   test('onFocus option', () => {
     const onFocus = jest.fn()
-    render(<Input {...defaultProps} onFocus={onFocus} />)
+    render(<Input {...defaultProps} data-testid={defaultProps.testId} onFocus={onFocus} />)
     fireEvent.focus(screen.getByTestId(defaultProps.testId))
     expect(onFocus).toHaveBeenCalled()
   })
 
   test('onChange option', async () => {
     const onChange = jest.fn()
-    const props = { ...defaultProps, type: 'number', value: 100 }
-    render(<Input {...props} onChange={onChange} />)
+    render(<Input {...defaultProps} data-testid={defaultProps.testId} onChange={onChange} />)
     const updatedValue = '25'
     fireEvent.ionChange(screen.getByTestId(defaultProps.testId), updatedValue)
-
     await waitFor(() => expect(onChange.mock.calls[0][0].detail.value).toEqual(updatedValue))
   })
 })

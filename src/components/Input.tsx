@@ -1,14 +1,12 @@
-import React from 'react'
-import { IonInput, IonItem, IonLabel, IonIcon, IonNote } from '@ionic/react'
+import React, { FC, ComponentProps } from 'react'
+import { IonInput, IonItem, IonLabel, IonNote } from '@ionic/react'
 import { InputChangeEventDetail } from '@ionic/core'
 
-type IonKeysToExclude = 'ionChange' | 'onIonBlur' | 'onIonFocus' | 'onIonInput' | 'mode'
-
-export interface InputProps extends Omit<HTMLIonInputElement, IonKeysToExclude> {
+export type InputProps = {
   /**
    * A handler for onChange events
    */
-  onChange: (event: CustomEvent<InputChangeEventDetail>) => void
+  onChange?: (event: CustomEvent<InputChangeEventDetail>) => void
 
   /**
    * A handler for onFocus events
@@ -23,10 +21,10 @@ export interface InputProps extends Omit<HTMLIonInputElement, IonKeysToExclude> 
   /**
    * Type of the input
    */
-  type: 'text' | 'email' | 'number' | 'url' | 'search' | 'tel'
+  type?: 'text' | 'email' | 'number' | 'url' | 'search' | 'tel'
 
   /**
-   * Label of the input
+   * Label text of the input
    */
   label: string
 
@@ -44,30 +42,22 @@ export interface InputProps extends Omit<HTMLIonInputElement, IonKeysToExclude> 
    * Invalid Text of input
    */
   inputInvalidText?: string
+} & ComponentProps<typeof IonInput>
 
-  /**
-   * Test id attribute
-   */
-  testId?: string
-}
-
-export const Input = ({
+export const Input: FC<InputProps> = ({
   type = 'text',
   label,
   name,
   inputInvalid,
   inputInvalidText,
-  testId,
   onChange,
-  ...inputProps
-}: InputProps): JSX.Element => {
+  ...rest
+}) => {
   return (
     <>
       <IonItem data-testid={'ion-item'} className={inputInvalid ? 'ion-invalid ion-touched' : undefined}>
-        <IonLabel position={'stacked'} id={name}>
-          {label}
-        </IonLabel>
-        <IonInput {...inputProps} type={type} onIonChange={onChange} data-testid={testId} />
+        <IonLabel position={'stacked'}>{label}</IonLabel>
+        <IonInput {...rest} type={type} name={name} onIonChange={onChange} />
       </IonItem>
       {inputInvalid && <IonNote className={'invalid'}>{inputInvalidText}</IonNote>}
     </>
