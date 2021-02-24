@@ -1,6 +1,5 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
-
 import { Input, InputProps } from './Input'
 
 export default {
@@ -19,10 +18,7 @@ WithoutIcon.args = {
   name: 'Text',
   label: 'Input label',
   placeholder: 'Placeholder Text',
-  disabled: false,
-  readonly: false,
-  required: false,
-  clearInput: false
+  disabled: false
 }
 
 export const WithClearInput = Template.bind({})
