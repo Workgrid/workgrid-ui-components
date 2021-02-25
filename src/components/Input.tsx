@@ -1,6 +1,7 @@
 import React, { FC, ComponentProps } from 'react'
 import { IonInput, IonItem, IonLabel, IonNote } from '@ionic/react'
 import { InputChangeEventDetail } from '@ionic/core'
+import styled from 'styled-components'
 
 export type InputProps = {
   /**
@@ -44,6 +45,13 @@ export type InputProps = {
   inputInvalidText?: string
 } & ComponentProps<typeof IonInput>
 
+const InvalidNote = styled(IonNote)`
+  font-size: 0.75rem;
+  padding-inline-start: 1.25rem;
+  padding-left: 1.25rem;
+  color: var(--ion-color-danger);
+`
+
 export const Input: FC<InputProps> = ({
   type = 'text',
   label,
@@ -59,7 +67,7 @@ export const Input: FC<InputProps> = ({
         <IonLabel position={'stacked'}>{label}</IonLabel>
         <IonInput {...rest} type={type} name={name} onIonChange={onChange} />
       </IonItem>
-      {inputInvalid && <IonNote className={'invalid'}>{inputInvalidText}</IonNote>}
+      {inputInvalid && <InvalidNote>{inputInvalidText}</InvalidNote>}
     </>
   )
 }
