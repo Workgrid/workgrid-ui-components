@@ -18,16 +18,6 @@ describe('Input', () => {
     expect(screen.getByTestId('ion-item').className).toEqual('')
   })
 
-  test('Disable option', () => {
-    render(<Input {...defaultProps} data-testid={defaultProps.testId} disabled={true} />)
-    expect((screen.getByTestId(defaultProps.testId) as any).disabled)
-  })
-
-  test('ReadOnly option', () => {
-    render(<Input {...defaultProps} data-testid={defaultProps.testId} readonly={true} />)
-    expect((screen.getByTestId(defaultProps.testId) as any).readonly)
-  })
-
   test('InvalidInput option', () => {
     render(<Input {...defaultProps} inputInvalid={true} />)
     expect(screen.getByTestId('ion-item').className).toEqual('ion-invalid ion-touched')
