@@ -2,5 +2,7 @@
 
 ./github/ @Workgrid/tech-leads
 
+/src/ @Workgrid/ux
+
 # We're required to document our development process and therefore want to ensure Tech Leads approve of the change
 README.md @Workgrid/tech-leads
