@@ -1,6 +1,6 @@
 {
   "name": "@workgrid/ui",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Workgrid UI component library",
   "main": "dist/index.js",
   "files": [
