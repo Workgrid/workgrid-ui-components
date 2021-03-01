@@ -19,7 +19,7 @@ describe('Input', () => {
   })
 
   test('InvalidInput option', () => {
-    render(<Input {...defaultProps} inputInvalid={true} />)
+    render(<Input {...defaultProps} invalid={true} />)
     expect(screen.getByTestId('ion-item').className).toEqual('ion-invalid ion-touched')
   })
 

@@ -3,7 +3,11 @@ import { IonInput, IonItem, IonLabel, IonNote } from '@ionic/react'
 import { InputChangeEventDetail } from '@ionic/core'
 import styled from 'styled-components'
 
-export type InputProps = {
+export type InputProps = Omit<Props, IonKeysToExclude>
+
+type IonKeysToExclude = 'onIonChange' | 'onIonBlur' | 'onIonFocus' | 'onIonInput' | 'mode'
+
+type Props = {
   /**
    * A handler for onChange events
    */
@@ -37,12 +41,12 @@ export type InputProps = {
   /**
    * Indicator to identify that the input is invalid
    */
-  inputInvalid?: boolean
+  invalid?: boolean
 
   /**
    * Invalid Text of input
    */
-  inputInvalidText?: string
+  invalidText?: string
 } & ComponentProps<typeof IonInput>
 
 const InvalidNote = styled(IonNote)`
@@ -52,22 +56,22 @@ const InvalidNote = styled(IonNote)`
   color: var(--ion-color-danger);
 `
 
-export const Input: FC<InputProps> = ({
+export const Input = ({
   type = 'text',
   label,
   name,
-  inputInvalid,
-  inputInvalidText,
+  invalid,
+  invalidText,
   onChange,
   ...rest
-}) => {
+}: InputProps): JSX.Element => {
   return (
     <>
-      <IonItem data-testid={'ion-item'} className={inputInvalid ? 'ion-invalid ion-touched' : undefined}>
+      <IonItem data-testid={'ion-item'} className={invalid ? 'ion-invalid ion-touched' : undefined}>
         <IonLabel position={'stacked'}>{label}</IonLabel>
         <IonInput {...rest} type={type} name={name} onIonChange={onChange} />
       </IonItem>
-      {inputInvalid && <InvalidNote>{inputInvalidText}</InvalidNote>}
+      {invalid && <InvalidNote>{invalidText}</InvalidNote>}
     </>
   )
 }

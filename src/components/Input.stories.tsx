@@ -34,6 +34,6 @@ export const WithInvalidInput = Template.bind({})
 WithInvalidInput.args = {
   ...WithoutIcon.args,
   value: 'Invalid Input',
-  inputInvalid: true,
-  inputInvalidText: 'Please enter a valid value'
+  invalid: true,
+  invalidText: 'Please enter a valid value'
 }
