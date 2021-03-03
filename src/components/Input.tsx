@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps } from 'react'
+import React, { ComponentProps } from 'react'
 import { IonInput, IonItem, IonLabel, IonNote } from '@ionic/react'
 import { InputChangeEventDetail } from '@ionic/core'
 import styled from 'styled-components'
@@ -67,8 +67,8 @@ export const Input = ({
 }: InputProps): JSX.Element => {
   return (
     <>
-      <IonItem data-testid={'ion-item'} className={invalid ? 'ion-invalid ion-touched' : undefined}>
-        <IonLabel position={'stacked'}>{label}</IonLabel>
+      <IonItem data-testid="ion-item" className={invalid ? 'ion-invalid ion-touched' : undefined}>
+        <IonLabel position="stacked">{label}</IonLabel>
         <IonInput {...rest} type={type} name={name} onIonChange={onChange} />
       </IonItem>
       {invalid && <InvalidNote>{invalidText}</InvalidNote>}

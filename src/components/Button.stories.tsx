@@ -15,9 +15,9 @@ export default {
   argTypes: {
     icon: {
       name: 'icon',
-      type: { name: 'string', required: false },
+      variant: { name: 'string', required: false },
       control: {
-        type: 'select',
+        variant: 'select',
         options: [...Object.keys(iconMap), null]
       }
     },
@@ -41,7 +41,7 @@ export const FilledText = Template.bind({})
 
 FilledText.args = {
   children: ' Button',
-  type: 'primary'
+  variant: 'primary'
 }
 
 export const FilledTextAndIconStart = Template.bind({})

@@ -11,10 +11,10 @@ describe('RadioGroup', () => {
     const radioValue = 'option-b'
 
     render(
-      <RadioGroup name={'radio-group'} label={radioGroupLabel} onChange={onChange} value={'option-a'}>
-        <Radio name={'radio-group'} value={'option-a'} label={'Option A'} />
-        <Radio name={'radio-group'} value={radioValue} label={'Option B'} />
-        <Radio name={'radio-group'} value={'option-c'} label={'Option C'} />
+      <RadioGroup name="radio-group" label={radioGroupLabel} onChange={onChange} value="option-a">
+        <Radio name="radio-group" value="option-a" label="Option A" />
+        <Radio name="radio-group" value={radioValue} label="Option B" />
+        <Radio name="radio-group" value="option-c" label="Option C" />
       </RadioGroup>
     )
 

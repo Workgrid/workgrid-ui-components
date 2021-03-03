@@ -56,14 +56,14 @@ export const Sender = ({
   }
 
   return (
-    <IonItem lines={'none'}>
-      <IonAvatar slot={'start'} style={{ position: 'relative' }}>
+    <IonItem lines="none">
+      <IonAvatar slot="start" style={{ position: 'relative' }}>
         <IonImg src={senderImageUrl} onIonError={onIonImageError} alt={from} />
       </IonAvatar>
       <IonLabel>
         <h3>
           {from}
-          <IonText color={'medium'} className={'ion-padding-start'}>
+          <IonText color="medium" className="ion-padding-start">
             {fromNow(locale, timestamp)}
           </IonText>
         </h3>

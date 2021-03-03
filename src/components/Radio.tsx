@@ -30,7 +30,7 @@ export interface RadioProps {
 
 export const Radio = ({ name, label, color = 'medium', disabled, value }: RadioProps): JSX.Element => {
   return (
-    <IonItem lines={'none'}>
+    <IonItem lines="none">
       <IonLabel>{label}</IonLabel>
       <IonRadio color={color} name={name} disabled={disabled} value={value} />
     </IonItem>

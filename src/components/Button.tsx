@@ -3,11 +3,6 @@ import { IonButton, IonIcon } from '@ionic/react'
 
 export interface ButtonProps {
   /**
-   * id of the element
-   */
-  id?: string
-
-  /**
    * Label of the button
    */
   children: string
@@ -28,9 +23,14 @@ export interface ButtonProps {
   iconPosition?: 'start' | 'end'
 
   /**
-   * Type of the button
+   * Variant of the button
    */
-  type?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger'
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'link'
+
+  /**
+   * Type of button
+   */
+  type?: 'submit' | 'reset' | 'button'
 
   /**
    * Fill style to use for the button
@@ -45,12 +45,12 @@ export interface ButtonProps {
   /**
    * A handler for onClick events
    */
-  onClick: React.MouseEventHandler
+  onClick?: React.MouseEventHandler
 }
 
 export const Button = ({
-  id,
-  type = 'primary',
+  type = 'button',
+  variant = 'primary',
   fill = 'solid',
   disabled = false,
   children,
@@ -66,7 +66,15 @@ export const Button = ({
     : {}
 
   return (
-    <IonButton color={type} fill={fill} disabled={disabled} onClick={onClick} shape="round" id={id} style={style}>
+    <IonButton
+      color={variant}
+      type={type}
+      fill={fill}
+      disabled={disabled}
+      onClick={onClick}
+      shape="round"
+      style={style}
+    >
       {iconOnly ? null : children}
       {icon && <IonIcon slot={slot} icon={icon} ariaLabel={children} />}
     </IonButton>

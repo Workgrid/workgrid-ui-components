@@ -15,7 +15,7 @@ Workgrid UI is a set of React UI components that wrap the [Ionic UI framework](h
 You can install Workgrid UI using a package manager like [npm](https://docs.npmjs.com/cli/npm) or [yarn](https://classic.yarnpkg.com/lang/en/).
 
 ```shell
-yarn add @workgrid/ui @ionic/react @ionic/react-router
+yarn add @workgrid/ui @ionic/react @ionic/react-router styled-components
 ```
 
 ## Configuration
@@ -53,10 +53,10 @@ yarn build-storybook
 yarn test
 ```
 
-## Compile
+## Build
 
 ```shell
-tsc
+yarn build
 ```
 
 # Development Process

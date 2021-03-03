@@ -46,8 +46,8 @@ jobs:
         with:
           name: Storybook Build
           path: storybook-static
-      - name: Compile
-        run: tsc
+      - name: Build
+        run: yarn build
       - name: '[NPM] Configure'
         if: github.ref == 'refs/heads/main'
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc

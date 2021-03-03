@@ -11,9 +11,9 @@ export default {
 
 const Template: Story<RadioGroupProps> = args => (
   <RadioGroup {...args}>
-    <Radio name={args.name} value={'option-a'} label={'Option A'} />
-    <Radio name={args.name} value={'option-b'} label={'Option B'} />
-    <Radio name={args.name} value={'option-c'} label={'Option C'} />
+    <Radio name={args.name} value="option-a" label="Option A" />
+    <Radio name={args.name} value="option-b" label="Option B" />
+    <Radio name={args.name} value="option-c" label="Option C" />
   </RadioGroup>
 )
 
@@ -34,9 +34,9 @@ SelectedRadio.args = {
 
 export const ErrorRadio: Story<RadioGroupProps> = args => (
   <RadioGroup {...args}>
-    <Radio name={args.name} value={'option-a'} label={'Option A'} />
-    <Radio name={args.name} value={'option-b'} label={'Option B'} color={'danger'} />
-    <Radio name={args.name} value={'option-c'} label={'Option C'} />
+    <Radio name={args.name} value="option-a" label="Option A" />
+    <Radio name={args.name} value="option-b" label="Option B" color="danger" />
+    <Radio name={args.name} value="option-c" label="Option C" />
   </RadioGroup>
 )
 
@@ -48,9 +48,9 @@ ErrorRadio.args = {
 
 export const DisabledRadio: Story<RadioGroupProps> = args => (
   <RadioGroup {...args}>
-    <Radio name={args.name} value={'option-a'} label={'Option A'} disabled />
-    <Radio name={args.name} value={'option-b'} label={'Option B'} />
-    <Radio name={args.name} value={'option-c'} label={'Option C'} />
+    <Radio name={args.name} value="option-a" label="Option A" disabled />
+    <Radio name={args.name} value="option-b" label="Option B" />
+    <Radio name={args.name} value="option-c" label="Option C" />
   </RadioGroup>
 )
 
