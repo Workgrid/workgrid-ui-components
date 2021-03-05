@@ -13,14 +13,14 @@ describe('Input', () => {
 
   test('Default options', () => {
     render(<Input {...defaultProps} data-testid={defaultProps.testId} />)
-    expect(screen.getByText(defaultProps.label)).not.toBeNull()
-    expect(screen.getByPlaceholderText(defaultProps.placeholder)).not.toBeNull()
-    expect(screen.getByTestId('ion-item').className).toEqual('')
+    expect(screen.getByText(defaultProps.label)).toBeInTheDocument()
+    expect(screen.getByPlaceholderText(defaultProps.placeholder)).toBeInTheDocument()
+    expect(screen.getByTestId('ion-item')).toHaveClass('', { exact: true })
   })
 
   test('InvalidInput option', () => {
     render(<Input {...defaultProps} invalid={true} />)
-    expect(screen.getByTestId('ion-item').className).toEqual('ion-invalid ion-touched')
+    expect(screen.getByTestId('ion-item')).toHaveClass('ion-invalid ion-touched', { exact: true })
   })
 
   test('onBlur option', () => {

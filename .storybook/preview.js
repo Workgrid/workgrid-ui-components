@@ -34,11 +34,11 @@ export const globalTypes = {
 }
 
 const withIonApp = (Story, context) => {
-  return (
-    <div mode={context.globals.mode}>
-      <Story {...context} />
-    </div>
-  )
+  const classToRemove = context.globals.mode === 'ios' ? 'md' : 'ios'
+
+  document.getElementsByTagName('html').item(0).classList.replace(classToRemove, context.globals.mode)
+
+  return <Story {...context} />
 }
 
 export const decorators = [withIonApp]

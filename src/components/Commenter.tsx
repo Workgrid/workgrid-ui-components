@@ -27,12 +27,12 @@ export interface CommenterProps {
 
 export const Commenter = ({ avatarUrl, commenter, timestamp, locale = 'en' }: CommenterProps): JSX.Element => {
   return (
-    <IonItem lines={'none'}>
+    <IonItem lines="none">
       <Avatar avatarUrl={avatarUrl} avatar={commenter} />
       <IonLabel>
         <h3>
           {commenter}
-          <IonText color={'medium'} className={'ion-padding-start'}>
+          <IonText color="medium" className="ion-padding-start">
             {fromNow(locale, timestamp)}
           </IonText>
         </h3>

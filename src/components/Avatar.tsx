@@ -6,7 +6,7 @@ export interface AvatarProps {
   avatar: string
 }
 
-const Initials: React.FC = ({ children }) => (
+const Initials = ({ children }: { children: string }) => (
   <div
     style={{
       backgroundColor: 'var(--ion-color-medium)',
@@ -38,7 +38,7 @@ export const Avatar = ({ avatarUrl, avatar }: AvatarProps): JSX.Element => {
   }
 
   return (
-    <IonAvatar slot={'start'} style={{ position: 'relative' }}>
+    <IonAvatar slot="start" style={{ position: 'relative' }}>
       {showInitials && <Initials>{initials}</Initials>}
       <IonImg src={avatarUrl} onIonImgDidLoad={onImageDidload} alt={avatar} />
     </IonAvatar>

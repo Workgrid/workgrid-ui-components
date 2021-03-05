@@ -1,13 +1,16 @@
 {
   "name": "@workgrid/ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Workgrid UI component library",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "build-storybook": "build-storybook",
+    "build": "tsc",
+    "postbuild": "cp -R ./src/assets ./dist",
     "storybook": "start-storybook -p 6006",
     "format": "prettier --write '**/*.{json,yaml,yml,md,ts,tsx}' --ignore-path .gitignore",
     "test": "jest",
@@ -33,6 +36,7 @@
     "@storybook/addon-storyshots": "^6.1.9",
     "@storybook/addon-storyshots-puppeteer": "^6.1.9",
     "@storybook/react": "^6.1.9",
+    "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.2",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.10",
@@ -48,7 +52,10 @@
     "babel-loader": "^8.2.2",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-jest-dom": "^3.6.5",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-testing-library": "^3.10.1",
     "husky": "^4.3.0",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.2",
@@ -81,13 +88,25 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint",
-      "prettier"
+      "prettier",
+      "testing-library",
+      "jest-dom"
     ],
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/recommended",
-      "plugin:prettier/recommended"
-    ]
+      "plugin:prettier/recommended",
+      "plugin:testing-library/recommended",
+      "plugin:jest-dom/recommended",
+      "plugin:react/recommended"
+    ],
+    "rules": {
+      "jest-dom/prefer-to-have-value": "off",
+      "react/jsx-curly-brace-presence": [
+        2,
+        "never"
+      ]
+    }
   },
   "jest": {
     "moduleNameMapper": {
@@ -96,7 +115,8 @@
     },
     "setupFilesAfterEnv": [
       "<rootDir>/jest-config/setupTests.js"
-    ]
+    ],
+    "resetMocks": true
   },
   "babel": {
     "presets": [
