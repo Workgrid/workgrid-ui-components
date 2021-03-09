@@ -11,6 +11,11 @@ export interface RadioGroupProps {
   label: string
 
   /**
+   * Used to add additional context or a description to the label element
+   */
+  caption?: string
+
+  /**
    * Name of the radio group which is submitted with the form data
    */
   name: string
@@ -31,12 +36,15 @@ export interface RadioGroupProps {
   children: React.ReactElement<RadioProps>[] | React.ReactElement<RadioProps>
 }
 
-export const RadioGroup = ({ name, label, value, onChange, children }: RadioGroupProps): JSX.Element => {
+export const RadioGroup = ({ name, label, caption, value, onChange, children }: RadioGroupProps): JSX.Element => {
   return (
     <IonList>
       <IonRadioGroup name={name} value={value} onIonChange={onChange}>
         <IonListHeader>
-          <IonLabel>{label}</IonLabel>
+          <IonLabel>
+            {label}
+            {caption && <p>{caption}</p>}
+          </IonLabel>
         </IonListHeader>
         {children}
       </IonRadioGroup>

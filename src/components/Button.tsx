@@ -38,6 +38,11 @@ export interface ButtonProps {
   fill?: 'clear' | 'outline' | 'solid'
 
   /**
+   * Set to "block" for a full-width button or to "full" for a full-width button without left and right borders.
+   */
+  expand?: 'block' | 'full'
+
+  /**
    * Whether the button is disabled or not
    */
   disabled?: boolean
@@ -52,6 +57,7 @@ export const Button = ({
   type = 'button',
   variant = 'primary',
   fill = 'solid',
+  expand,
   disabled = false,
   children,
   icon,
@@ -74,6 +80,7 @@ export const Button = ({
       onClick={onClick}
       shape="round"
       style={style}
+      expand={expand}
     >
       {iconOnly ? null : children}
       {icon && <IonIcon slot={slot} icon={icon} ariaLabel={children} />}
