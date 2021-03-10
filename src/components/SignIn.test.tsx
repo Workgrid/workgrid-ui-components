@@ -301,6 +301,6 @@ describe('SignIn', () => {
     expect(screen.queryByText(translations.checkCompanyCodeText)).not.toBeInTheDocument()
 
     // Flushing last render
-    await act(async () => deferredResolve!(''))
+    await act(async () => deferredResolve?.(''))
   })
 })

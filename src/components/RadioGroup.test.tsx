@@ -26,6 +26,7 @@ describe('RadioGroup', () => {
     /*
      * Similar to the above we have to walk up a couple of nodes in the DOM hierarchy to get to the <RadioGroup /> since getByRole does not work. Similarly I didn't want to add a testId prop just to support testing.
      */
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     fireEvent.ionChange(radioGroup.parentElement!.parentElement!, radioValue)
 
     await waitFor(() => expect(onChange.mock.calls[0][0].detail.value).toEqual(radioValue))

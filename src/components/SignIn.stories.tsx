@@ -8,8 +8,7 @@ export default {
   component: SignIn
 } as Meta
 
-const onCompanyCodeSubmit = (companyCode: string): Promise<void> =>
-  new Promise(resolve => setTimeout(() => resolve, 3000))
+const onCompanyCodeSubmit = (): Promise<void> => new Promise(resolve => setTimeout(() => resolve, 3000))
 
 const Template: Story<SignInProps> = args => <SignIn {...args} onCompanyCodeSubmit={onCompanyCodeSubmit} />
 

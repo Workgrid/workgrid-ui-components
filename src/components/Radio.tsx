@@ -1,11 +1,16 @@
 import React from 'react'
-import { IonRadio, IonItem, IonLabel } from '@ionic/react'
+import { IonRadio, IonItem, IonLabel, IonText } from '@ionic/react'
 
 export interface RadioProps {
   /**
    * Label of the radio button
    */
   label: string
+
+  /**
+   * Used to add additional context or a description to the label element
+   */
+  caption?: string
 
   /**
    * Name of the radio which is submitted with the form data
@@ -28,10 +33,13 @@ export interface RadioProps {
   value: any | null
 }
 
-export const Radio = ({ name, label, color = 'medium', disabled, value }: RadioProps): JSX.Element => {
+export const Radio = ({ name, label, caption, color = 'medium', disabled, value }: RadioProps): JSX.Element => {
   return (
-    <IonItem lines="none">
-      <IonLabel>{label}</IonLabel>
+    <IonItem>
+      <IonLabel>
+        {label}
+        {caption && <p>{caption}</p>}
+      </IonLabel>
       <IonRadio color={color} name={name} disabled={disabled} value={value} />
     </IonItem>
   )

@@ -8,5 +8,6 @@ import { RadioGroup } from './components/RadioGroup'
 import { Sender } from './components/Sender'
 import { SignIn } from './components/SignIn'
 import { NetworkSplash } from './components/NetworkSplash'
+import { Spaces } from './components/Spaces'
 
-export { Avatar, Button, Commenter, Indicator, Input, Radio, RadioGroup, Sender, SignIn, NetworkSplash }
+export { Avatar, Button, Commenter, Indicator, Input, Radio, RadioGroup, Sender, SignIn, NetworkSplash, Spaces }
