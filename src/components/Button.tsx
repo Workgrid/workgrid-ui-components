@@ -1,7 +1,14 @@
 import React from 'react'
 import { IonButton, IonIcon } from '@ionic/react'
 
+export type ButtonVariants = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'link'
+export type ButtonFills = 'clear' | 'outline' | 'solid'
 export interface ButtonProps {
+  /**
+   * Id of the button
+   */
+  id?: string
+
   /**
    * Label of the button
    */
@@ -25,7 +32,7 @@ export interface ButtonProps {
   /**
    * Variant of the button
    */
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'link'
+  variant?: ButtonVariants
 
   /**
    * Type of button
@@ -35,7 +42,7 @@ export interface ButtonProps {
   /**
    * Fill style to use for the button
    */
-  fill?: 'clear' | 'outline' | 'solid'
+  fill?: ButtonFills
 
   /**
    * Set to "block" for a full-width button or to "full" for a full-width button without left and right borders.
@@ -63,7 +70,8 @@ export const Button = ({
   icon,
   iconOnly = false,
   iconPosition = 'start',
-  onClick
+  onClick,
+  id
 }: ButtonProps): JSX.Element => {
   const slot = iconOnly ? 'icon-only' : iconPosition
   /* Match style of IonFabButton */
@@ -81,6 +89,7 @@ export const Button = ({
       shape="round"
       style={style}
       expand={expand}
+      {...(id ? { id } : undefined)}
     >
       {iconOnly ? null : children}
       {icon && <IonIcon slot={slot} icon={icon} ariaLabel={children} />}

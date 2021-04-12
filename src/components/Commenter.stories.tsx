@@ -3,10 +3,12 @@ import { Story, Meta } from '@storybook/react'
 
 import { Commenter, CommenterProps } from './Commenter'
 import avatar from '../assets/avatar.png'
+import componentDecorators from '../../.storybook/component-decorators'
 
 export default {
   title: 'Card Components/Commenter',
   component: Commenter,
+  decorators: componentDecorators,
   argTypes: {
     timestamp: {
       name: 'comment timestamp',

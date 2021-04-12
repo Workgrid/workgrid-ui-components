@@ -3,10 +3,12 @@ import { Story, Meta } from '@storybook/react'
 
 import { Radio } from './Radio'
 import { RadioGroup, RadioGroupProps } from './RadioGroup'
+import componentDecorators from '../../.storybook/component-decorators'
 
 export default {
   title: 'Components/Radio Groups',
-  component: RadioGroup
+  component: RadioGroup,
+  decorators: componentDecorators
 } as Meta
 
 const Template: Story<RadioGroupProps> = args => (

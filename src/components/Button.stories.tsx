@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react'
 
 import { Button, ButtonProps } from './Button'
 import { star, add, airplane, trashOutline } from 'ionicons/icons'
+import componentDecorators from '../../.storybook/component-decorators'
 
 interface IconMap {
   [index: string]: string
@@ -12,6 +13,7 @@ const iconMap: IconMap = { star, add, airplane, trashOutline }
 export default {
   title: 'Components/Buttons',
   component: Button,
+  decorators: componentDecorators,
   argTypes: {
     icon: {
       name: 'icon',

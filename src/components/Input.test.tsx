@@ -19,21 +19,21 @@ describe('Input', () => {
   })
 
   test('InvalidInput option', () => {
-    render(<Input {...defaultProps} invalid={true} />)
+    render(<Input {...defaultProps} invalidText="Field is required" />)
     expect(screen.getByTestId('ion-item')).toHaveClass('ion-invalid ion-touched', { exact: true })
   })
 
   test('onBlur option', () => {
     const onBlur = jest.fn()
     render(<Input {...defaultProps} data-testid={defaultProps.testId} onBlur={onBlur} />)
-    fireEvent.blur(screen.getByTestId(defaultProps.testId))
+    fireEvent.ionBlur(screen.getByTestId(defaultProps.testId))
     expect(onBlur).toHaveBeenCalled()
   })
 
   test('onFocus option', () => {
     const onFocus = jest.fn()
     render(<Input {...defaultProps} data-testid={defaultProps.testId} onFocus={onFocus} />)
-    fireEvent.focus(screen.getByTestId(defaultProps.testId))
+    fireEvent.ionFocus(screen.getByTestId(defaultProps.testId))
     expect(onFocus).toHaveBeenCalled()
   })
 
