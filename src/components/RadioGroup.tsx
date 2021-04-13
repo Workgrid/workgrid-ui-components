@@ -36,18 +36,22 @@ export interface RadioGroupProps {
   children: React.ReactElement<RadioProps>[] | React.ReactElement<RadioProps>
 }
 
-export const RadioGroup = ({ name, label, caption, value, onChange, children }: RadioGroupProps): JSX.Element => {
-  return (
-    <IonList>
-      <IonRadioGroup name={name} value={value} onIonChange={onChange}>
-        <IonListHeader>
-          <IonLabel>
-            {label}
-            {caption && <p>{caption}</p>}
-          </IonLabel>
-        </IonListHeader>
-        {children}
-      </IonRadioGroup>
-    </IonList>
-  )
-}
+export const RadioGroup = React.forwardRef<HTMLIonRadioGroupElement, RadioGroupProps>(
+  ({ name, label, caption, value, onChange, children }: RadioGroupProps, ref): JSX.Element => {
+    return (
+      <IonList>
+        <IonRadioGroup name={name} value={value} onIonChange={onChange} ref={ref}>
+          <IonListHeader>
+            <IonLabel>
+              {label}
+              {caption && <p>{caption}</p>}
+            </IonLabel>
+          </IonListHeader>
+          {children}
+        </IonRadioGroup>
+      </IonList>
+    )
+  }
+)
+
+RadioGroup.displayName = 'RadioGroup'

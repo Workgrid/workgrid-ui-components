@@ -4,6 +4,7 @@ import { Button } from './Button'
 import { Input } from './Input'
 import styled from 'styled-components'
 import signInLanding from '../assets/sign-in-landing.png'
+import { InputChangeEventDetail } from '@ionic/core'
 
 export interface SignInProps {
   /**
@@ -195,11 +196,10 @@ export const SignIn = ({
             name="company-code-input"
             value={companyCodeInput}
             placeholder={translations.companyCodePlaceholder}
-            invalid={isInvalid}
             invalidText={invalidText}
             enterkeyhint="go"
             clearInput={true}
-            onChange={(event: any) => {
+            onChange={(event: CustomEvent<InputChangeEventDetail>) => {
               setInvalid(false)
               setCompanyCode(event.detail.value)
             }}

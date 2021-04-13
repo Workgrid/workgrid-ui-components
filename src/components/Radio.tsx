@@ -1,5 +1,5 @@
 import React from 'react'
-import { IonRadio, IonItem, IonLabel, IonText } from '@ionic/react'
+import { IonRadio, IonItem, IonLabel } from '@ionic/react'
 
 export interface RadioProps {
   /**

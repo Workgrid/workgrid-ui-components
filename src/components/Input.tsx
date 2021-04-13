@@ -3,11 +3,12 @@ import { IonInput, IonItem, IonLabel, IonNote } from '@ionic/react'
 import { InputChangeEventDetail } from '@ionic/core'
 import styled from 'styled-components'
 
-export type InputProps = Omit<Props, IonKeysToExclude>
+export type InputProps = {
+  /**
+   * Id of the input
+   */
+  id?: string
 
-type IonKeysToExclude = 'onIonChange' | 'onIonBlur' | 'onIonFocus' | 'onIonInput' | 'mode'
-
-type Props = {
   /**
    * A handler for onChange events
    */
@@ -16,17 +17,17 @@ type Props = {
   /**
    * A handler for onFocus events
    */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>
+  onFocus?: (event: CustomEvent<FocusEvent>) => void
 
   /**
    * A handler for onBlur events
    */
-  onBlur?: React.FocusEventHandler<HTMLInputElement>
+  onBlur?: (event: CustomEvent<FocusEvent>) => void
 
   /**
    * Type of the input
    */
-  type?: 'text' | 'email' | 'number' | 'url' | 'search' | 'tel'
+  type?: 'text' | 'email' | 'number' | 'url' | 'search' | 'tel' | 'date' | 'time'
 
   /**
    * Label text of the input
@@ -34,20 +35,36 @@ type Props = {
   label: string
 
   /**
-   * Name of the input which is submitted with the form data
-   */
-  name: string
-
-  /**
-   * Indicator to identify that the input is invalid
-   */
-  invalid?: boolean
-
-  /**
    * Invalid Text of input
    */
   invalidText?: string
-} & ComponentProps<typeof IonInput>
+} & Pick<
+  ComponentProps<typeof IonInput>,
+  | 'accept'
+  | 'autocapitalize'
+  | 'autocomplete'
+  | 'autocorrect'
+  | 'autofocus'
+  | 'clearInput'
+  | 'debounce'
+  | 'disabled'
+  | 'enterkeyhint'
+  | 'inputmode'
+  | 'max'
+  | 'min'
+  | 'maxlength'
+  | 'minlength'
+  | 'multiple'
+  | 'name'
+  | 'pattern'
+  | 'placeholder'
+  | 'readonly'
+  | 'required'
+  | 'size'
+  | 'spellcheck'
+  | 'step'
+  | 'value'
+>
 
 const InvalidNote = styled(IonNote)`
   font-size: 0.75rem;
@@ -56,22 +73,20 @@ const InvalidNote = styled(IonNote)`
   color: var(--ion-color-danger);
 `
 
-export const Input = ({
-  type = 'text',
-  label,
-  name,
-  invalid,
-  invalidText,
-  onChange,
-  ...rest
-}: InputProps): JSX.Element => {
-  return (
-    <>
-      <IonItem data-testid="ion-item" className={invalid ? 'ion-invalid ion-touched' : undefined}>
-        <IonLabel position="stacked">{label}</IonLabel>
-        <IonInput {...rest} type={type} name={name} onIonChange={onChange} />
-      </IonItem>
-      {invalid && <InvalidNote>{invalidText}</InvalidNote>}
-    </>
-  )
-}
+export const Input = React.forwardRef<HTMLIonInputElement, InputProps>(
+  ({ type = 'text', label, invalidText, onChange, onFocus, onBlur, ...rest }: InputProps, ref): JSX.Element => {
+    const invalid = invalidText != null
+
+    return (
+      <>
+        <IonItem data-testid="ion-item" className={invalid ? 'ion-invalid ion-touched' : undefined}>
+          <IonLabel position="stacked">{label}</IonLabel>
+          <IonInput {...rest} type={type} onIonChange={onChange} onIonFocus={onFocus} onIonBlur={onBlur} ref={ref} />
+        </IonItem>
+        {invalid && <InvalidNote role="alert">{invalidText}</InvalidNote>}
+      </>
+    )
+  }
+)
+
+Input.displayName = 'Input'

@@ -1,4 +1,5 @@
 import React from 'react'
+import { IonApp, IonContent, IonPage } from '@ionic/react'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -7,6 +8,7 @@ import '@ionic/react/css/core.css'
 import '@ionic/react/css/normalize.css'
 import '@ionic/react/css/structure.css'
 import '@ionic/react/css/typography.css'
+import '@ionic/react/css/text-alignment.css'
 import '@ionic/react/css/padding.css'
 
 /* Theme variables */
@@ -30,15 +32,39 @@ export const globalTypes = {
         { value: 'ios', title: 'iOS' }
       ]
     }
+  },
+  theme: {
+    name: 'Theme',
+    description: 'The application theme',
+    defaultValue: 'light',
+    toolbar: {
+      items: [
+        { value: 'light', title: 'Default - Light' },
+        { value: 'dark', title: 'Default - Dark' }
+      ]
+    }
   }
 }
 
 const withIonApp = (Story, context) => {
-  const classToRemove = context.globals.mode === 'ios' ? 'md' : 'ios'
+  const modeClassToRemove = context.globals.mode === 'ios' ? 'md' : 'ios'
 
-  document.getElementsByTagName('html').item(0).classList.replace(classToRemove, context.globals.mode)
+  const htmlTagClassList = document.querySelector('html').classList
 
-  return <div mode={context.globals.mode}><Story {...context} /></div>
+  htmlTagClassList.replace(modeClassToRemove, context.globals.mode)
+
+  const themeClassesToRemove = globalTypes.theme.toolbar.items.filter(item => item.value !== context.globals.theme).map(item => item.value)
+
+  themeClassesToRemove.forEach(theme => {
+    htmlTagClassList.remove(theme)
+  })
+
+  htmlTagClassList.add(context.globals.theme)
+
+  return (<IonApp mode={context.globals.mode}>
+                  <Story {...context} />
+            </IonApp>
+)
 }
 
 export const decorators = [withIonApp]

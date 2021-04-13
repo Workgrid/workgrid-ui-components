@@ -5,10 +5,12 @@ import { Sender, SenderProps } from './Sender'
 import noSender from '../assets/no-sender.png'
 import avatar from '../assets/avatar.png'
 import { Indicator } from './Indicator'
+import componentDecorators from '../../.storybook/component-decorators'
 
 export default {
   title: 'Card Components/Sender',
   component: Sender,
+  decorators: componentDecorators,
   argTypes: {
     timestamp: {
       name: 'comment timestamp',
