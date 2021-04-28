@@ -153,7 +153,8 @@ export const Spaces = ({
       <CenteredContent>
         <form
           style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '800px' }}
-          onSubmit={() => {
+          onSubmit={e => {
+            e.preventDefault()
             onSpaceSubmit(selectedSpaceId)
           }}
         >

@@ -53,6 +53,13 @@ yarn build-storybook
 yarn test
 ```
 
+This project also uses [Cypress](https://docs.cypress.io/guides/component-testing/introduction) for component level testing.
+
+```shell
+yarn test:cypress # Runs Cypress in CI mode
+yarn cypress open-ct # Opens Cypress in interactive mode
+```
+
 ## Build
 
 ```shell

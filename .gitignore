@@ -386,3 +386,6 @@ data/
 dist/
 storybook-static/
 __diff_output__/
+
+cypress/videos/
+cypress/screenshots/
