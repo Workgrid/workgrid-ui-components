@@ -1,7 +1,6 @@
 import React from 'react'
 import { Input } from './Input'
-import { render, screen, waitFor } from '@testing-library/react'
-import { ionFireEvent as fireEvent } from '@ionic/react-test-utils'
+import { mount } from '@cypress/react'
 
 describe('Input', () => {
   const defaultProps = {
@@ -11,37 +10,57 @@ describe('Input', () => {
     testId: 'input-1'
   }
 
-  test('Default options', () => {
-    render(<Input {...defaultProps} data-testid={defaultProps.testId} />)
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument()
-    expect(screen.getByPlaceholderText(defaultProps.placeholder)).toBeInTheDocument()
-    expect(screen.getByTestId('ion-item')).toHaveClass('', { exact: true })
+  it('Default options', () => {
+    mount(<Input {...defaultProps} data-testid={defaultProps.testId} />)
+    cy.findByText(defaultProps.label).should('exist')
+    cy.findByPlaceholderText(defaultProps.placeholder).should('exist')
+    cy.findByTestId('ion-item').should('have.class', '')
   })
 
-  test('InvalidInput option', () => {
-    render(<Input {...defaultProps} invalidText="Field is required" />)
-    expect(screen.getByTestId('ion-item')).toHaveClass('ion-invalid ion-touched', { exact: true })
+  it('InvalidInput option', () => {
+    mount(<Input {...defaultProps} invalidText="Field is required" />)
+    cy.findByTestId('ion-item').should('have.class', 'ion-invalid ion-touched')
   })
 
-  test('onBlur option', () => {
-    const onBlur = jest.fn()
-    render(<Input {...defaultProps} data-testid={defaultProps.testId} onBlur={onBlur} />)
-    fireEvent.ionBlur(screen.getByTestId(defaultProps.testId))
-    expect(onBlur).toHaveBeenCalled()
+  it('onFocus option', () => {
+    const onFocus = cy.stub().as('onFocus')
+    mount(<Input {...defaultProps} data-testid={defaultProps.testId} onFocus={onFocus} />)
+    cy.findByTestId(defaultProps.testId)
+      .find('input')
+      .focus()
+      .then(() => {
+        // Must be inside a `.then` so it doesn't run too soon
+        // Using `await` doesn't work as it's not a real promise
+        expect(onFocus).to.be.called
+      })
   })
 
-  test('onFocus option', () => {
-    const onFocus = jest.fn()
-    render(<Input {...defaultProps} data-testid={defaultProps.testId} onFocus={onFocus} />)
-    fireEvent.ionFocus(screen.getByTestId(defaultProps.testId))
-    expect(onFocus).toHaveBeenCalled()
+  it('onBlur option', () => {
+    const onBlur = cy.stub().as('onBlur')
+    mount(<Input {...defaultProps} data-testid={defaultProps.testId} onBlur={onBlur} />)
+    // Have to focus before you can blur
+    cy.findByTestId(defaultProps.testId).find('input').focus()
+    cy.findByTestId(defaultProps.testId)
+      .find('input')
+      .blur()
+      .then(() => {
+        // Must be inside a `.then` so it doesn't run too soon
+        // Using `await` doesn't work as it's not a real promise
+        expect(onBlur).to.be.called
+      })
   })
 
-  test('onChange option', async () => {
-    const onChange = jest.fn()
-    render(<Input {...defaultProps} data-testid={defaultProps.testId} onChange={onChange} />)
+  it('onChange option', () => {
+    const onChange = cy.stub().as('onChange')
+    mount(<Input {...defaultProps} data-testid={defaultProps.testId} onChange={onChange} />)
     const updatedValue = '25'
-    fireEvent.ionChange(screen.getByTestId(defaultProps.testId), updatedValue)
-    await waitFor(() => expect(onChange.mock.calls[0][0].detail.value).toEqual(updatedValue))
+    cy.findByTestId(defaultProps.testId)
+      .find('input')
+      .type(updatedValue)
+      .then(() => {
+        // Must be inside a `.then` so it doesn't run too soon
+        // Using `await` doesn't work as it's not a real promise
+        expect(onChange).to.be.calledWithMatch({ detail: { value: updatedValue } })
+      })
   })
 })

@@ -1,6 +1,6 @@
 {
   "component": {
-    "testFiles": "App.test.tsx",
+    "testFiles": "**/Input.test.tsx",
     "componentFolder": "src"
   }
 }
