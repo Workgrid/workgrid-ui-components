@@ -6,6 +6,12 @@ import componentDecorators from '../../.storybook/component-decorators'
 export default {
   title: 'Components/Toggles',
   component: Toggle,
+  parameters: {
+    a11y: {
+      // Disabling "nested-interactive" rule until there's a fix from Ionic: https://github.com/ionic-team/ionic-framework/issues/23511
+      disabledRules: ['nested-interactive']
+    }
+  },
   decorators: componentDecorators,
   argTypes: {}
 } as Meta

@@ -40,7 +40,8 @@ export const Radio = ({ name, label, caption, color = 'medium', disabled, value 
         {label}
         {caption && <p>{caption}</p>}
       </IonLabel>
-      <IonRadio color={color} name={name} disabled={disabled} value={value} />
+      {/* Added aria-disabled due to: https://github.com/ionic-team/ionic-framework/issues/23513 */}
+      <IonRadio color={color} name={name} disabled={disabled} value={value} aria-disabled={disabled} />
     </IonItem>
   )
 }

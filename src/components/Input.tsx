@@ -67,6 +67,7 @@ export type InputProps = {
 >
 
 const InvalidNote = styled(IonNote)`
+  display: block;
   font-size: 0.75rem;
   padding-inline-start: 1.25rem;
   padding-left: 1.25rem;

@@ -1,7 +1,7 @@
 import path from 'path'
 import { DirectNavigationOptions } from 'puppeteer'
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot'
-import { ImageSnapshotConfig } from '@storybook/addon-storyshots-puppeteer/dist/config'
+import { ImageSnapshotConfig } from '@storybook/addon-storyshots-puppeteer'
 
 const imageSnapshotConfig: Partial<ImageSnapshotConfig> = {
   storybookUrl: `file://${path.resolve(__dirname, '../../storybook-static')}`,

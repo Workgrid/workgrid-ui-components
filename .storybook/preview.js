@@ -1,8 +1,9 @@
 import React from 'react'
-import { IonApp, IonContent, IonPage } from '@ionic/react'
+import { IonApp } from '@ionic/react'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 /* Core CSS required for Ionic components to work properly */
 import '../ionic'
+import { LocaleProvider } from '../src/components/LocaleProvider'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -20,7 +21,8 @@ export const globalTypes = {
       items: [
         { value: 'md', title: 'Android / Desktop' },
         { value: 'ios', title: 'iOS' }
-      ]
+      ],
+      showName: true
     }
   },
   theme: {
@@ -31,7 +33,8 @@ export const globalTypes = {
       items: [
         { value: 'light', title: 'Default - Light' },
         { value: 'dark', title: 'Default - Dark' }
-      ]
+      ],
+      showName: true
     }
   }
 }
@@ -39,9 +42,12 @@ export const globalTypes = {
 const withIonApp = (Story, context) => {
   const modeClassToRemove = context.globals.mode === 'ios' ? 'md' : 'ios'
 
-  const htmlTagClassList = document.querySelector('html').classList
+  const htmlElement = document.querySelector('html')
+
+  const htmlTagClassList = htmlElement.classList
 
   htmlTagClassList.replace(modeClassToRemove, context.globals.mode)
+  htmlElement.setAttribute('mode', context.globals.mode)
 
   const themeClassesToRemove = globalTypes.theme.toolbar.items.filter(item => item.value !== context.globals.theme).map(item => item.value)
 
@@ -51,10 +57,13 @@ const withIonApp = (Story, context) => {
 
   htmlTagClassList.add(context.globals.theme)
 
-  return (<IonApp mode={context.globals.mode}>
-                  <Story {...context} />
-            </IonApp>
-)
+  return (
+    <IonApp>
+      <LocaleProvider defaultLocale={navigator.language}>
+        <Story {...context} />
+      </LocaleProvider>
+    </IonApp>
+  )
 }
 
 export const decorators = [withIonApp]

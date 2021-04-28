@@ -1,6 +1,6 @@
 import imageSnapshotConfig from './imageSnapshotConfig'
 import { Page } from 'puppeteer'
-import { ImageSnapshotConfig } from '@storybook/addon-storyshots-puppeteer/dist/config'
+import { ImageSnapshotConfig } from '@storybook/addon-storyshots-puppeteer'
 
 const imageDarkSnapshotConfig: Partial<ImageSnapshotConfig> = {
   ...imageSnapshotConfig,
