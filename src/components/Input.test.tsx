@@ -25,14 +25,8 @@ describe('Input', () => {
   it('onFocus option', () => {
     const onFocus = cy.stub().as('onFocus')
     mount(<Input {...defaultProps} data-testid={defaultProps.testId} onFocus={onFocus} />)
-    cy.findByTestId(defaultProps.testId)
-      .find('input')
-      .focus()
-      .then(() => {
-        // Must be inside a `.then` so it doesn't run too soon
-        // Using `await` doesn't work as it's not a real promise
-        expect(onFocus).to.be.called
-      })
+    cy.findByTestId(defaultProps.testId).find('input').focus()
+    cy.wrap(onFocus).should('have.been.called')
   })
 
   it('onBlur option', () => {
@@ -40,27 +34,15 @@ describe('Input', () => {
     mount(<Input {...defaultProps} data-testid={defaultProps.testId} onBlur={onBlur} />)
     // Have to focus before you can blur
     cy.findByTestId(defaultProps.testId).find('input').focus()
-    cy.findByTestId(defaultProps.testId)
-      .find('input')
-      .blur()
-      .then(() => {
-        // Must be inside a `.then` so it doesn't run too soon
-        // Using `await` doesn't work as it's not a real promise
-        expect(onBlur).to.be.called
-      })
+    cy.findByTestId(defaultProps.testId).find('input').blur()
+    cy.wrap(onBlur).should('have.been.called')
   })
 
   it('onChange option', () => {
     const onChange = cy.stub().as('onChange')
     mount(<Input {...defaultProps} data-testid={defaultProps.testId} onChange={onChange} />)
     const updatedValue = '25'
-    cy.findByTestId(defaultProps.testId)
-      .find('input')
-      .type(updatedValue)
-      .then(() => {
-        // Must be inside a `.then` so it doesn't run too soon
-        // Using `await` doesn't work as it's not a real promise
-        expect(onChange).to.be.calledWithMatch({ detail: { value: updatedValue } })
-      })
+    cy.findByTestId(defaultProps.testId).find('input').type(updatedValue)
+    cy.wrap(onChange).should('have.been.calledWithMatch', { detail: { value: updatedValue } })
   })
 })
