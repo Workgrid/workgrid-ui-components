@@ -35,12 +35,22 @@ jobs:
         run: yarn build-storybook --quiet
       - name: Test
         run: yarn test
-      - name: Capture image snapshot diffs on failure
+      - name: Capture Storyshot image snapshot diffs on failure
         uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: Imagesnapshot Diffs
+          name: storyshort-diffs
           path: src/storyshots/__image_snapshots__/__diff_output__/
+      - name: Cypress Component Tests
+        run: yarn test:cypress
+      - name: Capture screenshots and videos on failure
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots-and-videos
+          path: |
+            cypress/screenshots/
+            cypress/videos/
       - name: Capture Storybook static build
         uses: actions/upload-artifact@v2
         with:

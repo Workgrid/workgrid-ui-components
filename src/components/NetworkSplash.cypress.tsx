@@ -1,6 +1,6 @@
 import React from 'react'
 import { NetworkSplash } from './NetworkSplash'
-import { render, screen } from '@testing-library/react'
+import { mount } from '@cypress/react'
 
 describe('NetworkSplash', () => {
   const translations = {
@@ -8,29 +8,29 @@ describe('NetworkSplash', () => {
     pleaseCheckInternetConnection: 'Please check your internet connection'
   }
 
-  test('When network is available render children', async () => {
+  it('When network is available render children', () => {
     const childComponentText = 'I am a child component'
 
-    render(
+    mount(
       <NetworkSplash isNetworkAvailable={true} translations={translations}>
         <p>{`${childComponentText}`}</p>
       </NetworkSplash>
     )
 
-    expect(screen.getByText(childComponentText)).toBeVisible()
-    expect(screen.queryByText(translations.cantConnectToNetwork)).not.toBeInTheDocument()
+    cy.findByText(childComponentText).should('exist')
+    cy.findByText(translations.cantConnectToNetwork).should('not.exist')
   })
 
-  test('When network is not available show network splash', async () => {
+  it('When network is not available show network splash', () => {
     const childComponentText = 'I am a child component'
 
-    render(
+    mount(
       <NetworkSplash isNetworkAvailable={false} translations={translations}>
         <p>{`${childComponentText}`}</p>
       </NetworkSplash>
     )
 
-    expect(screen.getByText(translations.cantConnectToNetwork)).toBeVisible()
-    expect(screen.queryByText(childComponentText)).not.toBeInTheDocument()
+    cy.findByText(translations.cantConnectToNetwork).should('exist')
+    cy.findByText(childComponentText).should('not.exist')
   })
 })

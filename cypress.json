@@ -1,0 +1,6 @@
+{
+  "component": {
+    "testFiles": "*.cypress.tsx",
+    "componentFolder": "src/components"
+  }
+}

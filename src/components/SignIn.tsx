@@ -15,7 +15,7 @@ export interface SignInProps {
   /**
    * Previously used company if any
    */
-  initialCompanyCode?: string
+  initialCompanyCode?: string | null
 
   /**
    * Whether the initial company code is valid or not
@@ -135,7 +135,7 @@ const validCompanyCodeRegex = new RegExp('^[a-zA-Z0-9.]+$')
 
 export const SignIn = ({
   defaultCompanyCode,
-  initialCompanyCode,
+  initialCompanyCode = null,
   initialCompanyCodeIsValid,
   onSignIn,
   onCompanyCodeSubmit,

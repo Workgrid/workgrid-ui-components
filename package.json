@@ -14,6 +14,7 @@
     "storybook": "start-storybook -p 6006",
     "format": "prettier --write '**/*.{json,yaml,yml,md,ts,tsx}' --ignore-path .gitignore",
     "test": "jest",
+    "test:cypress": "cypress run-ct",
     "lint": "eslint --fix '**/*.{ts,tsx}' --ignore-path .gitignore"
   },
   "repository": {
@@ -26,6 +27,8 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
+    "@cypress/react": "^5.4.0",
+    "@cypress/webpack-dev-server": "^1.1.5",
     "@ionic/react": "^5.6.4",
     "@ionic/react-router": "^5.6.4",
     "@ionic/react-test-utils": "^0.0.3",
@@ -36,8 +39,7 @@
     "@storybook/addon-storyshots": "^6.2.7",
     "@storybook/addon-storyshots-puppeteer": "^6.2.7",
     "@storybook/react": "^6.2.7",
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.2",
+    "@testing-library/cypress": "^7.0.6",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.10",
     "@types/puppeteer": "^5.4.2",
@@ -50,12 +52,12 @@
     "@typescript-eslint/parser": "^4.9.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
+    "cypress": "^7.2.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-jest-dom": "^3.6.5",
+    "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-testing-library": "^3.10.1",
     "husky": "^4.3.0",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.2",
@@ -66,6 +68,7 @@
     "react-is": "^17.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
     "styled-components": "^5.2.1",
     "typescript": "^4.1.2"
   },
@@ -88,16 +91,12 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint",
-      "prettier",
-      "testing-library",
-      "jest-dom"
+      "prettier"
     ],
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/recommended",
       "plugin:prettier/recommended",
-      "plugin:testing-library/recommended",
-      "plugin:jest-dom/recommended",
       "plugin:react/recommended"
     ],
     "rules": {
@@ -106,16 +105,35 @@
         2,
         "never"
       ]
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/?(*.)+(cypress).tsx"
+        ],
+        "extends": [
+          "plugin:cypress/recommended"
+        ],
+        "plugins": [
+          "cypress"
+        ],
+        "rules": {
+          "no-restricted-globals": [
+            "error",
+            {
+              "name": "expect",
+              "message": "use cy.wrap() instead."
+            }
+          ]
+        }
+      }
+    ]
   },
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/jest-config/styleMock.js",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/jest-config/fileMock.js"
     },
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest-config/setupTests.js"
-    ],
     "resetMocks": true
   },
   "babel": {
