@@ -58,6 +58,8 @@ export interface ButtonProps {
    * A handler for onClick events
    */
   onClick?: React.MouseEventHandler
+
+  className?: string
 }
 
 export const Button = ({
@@ -71,7 +73,8 @@ export const Button = ({
   iconOnly = false,
   iconPosition = 'start',
   onClick,
-  id
+  id,
+  className
 }: ButtonProps): JSX.Element => {
   const slot = iconOnly ? 'icon-only' : iconPosition
   /* Match style of IonFabButton */
@@ -90,6 +93,7 @@ export const Button = ({
       style={style}
       expand={expand}
       {...(id ? { id } : undefined)}
+      className={className}
     >
       {iconOnly ? null : children}
       {icon && <IonIcon slot={slot} icon={icon} ariaLabel={children} />}
